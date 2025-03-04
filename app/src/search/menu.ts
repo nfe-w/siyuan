@@ -624,7 +624,7 @@ const configIsSame = (config: Config.IUILayoutTabSearchConfig, config2: Config.I
 export const initCriteriaMenu = (element: HTMLElement, data: Config.IUILayoutTabSearchConfig[], config: Config.IUILayoutTabSearchConfig) => {
     fetchPost("/api/storage/getCriteria", {}, (response) => {
         let html = "";
-        response.data.forEach((item: Config.IUILayoutTabSearchConfig, index: number) => {
+        response.data.forEach((item: Config.IUILayoutTabSearchConfig) => {
             data.push(item);
             let isSame = false;
             if (configIsSame(item, config)) {
@@ -643,7 +643,7 @@ export const initCriteriaMenu = (element: HTMLElement, data: Config.IUILayoutTab
 <span class="fn__flex-1"></span>
 <button data-type="saveCriterion" class="b3-button b3-button--small b3-button--outline fn__flex-center">${window.siyuan.languages.saveCriterion}</button>
 <span class="fn__space"></span>
-<button data-type="removeCriterion" aria-label="${window.siyuan.languages.useCriterion}" class="ariaLabel b3-button b3-button--small b3-button--outline fn__flex-center fn__flex-shrink" data-position="9bottom">${window.siyuan.languages.removeCriterion}</button>
+<button data-type="removeCriterion" aria-label="${window.siyuan.languages.useCriterion}" class="ariaLabel b3-button b3-button--small b3-button--outline fn__flex-center fn__flex-shrink" data-position="9south">${window.siyuan.languages.removeCriterion}</button>
 <span class="fn__space"></span>`;
         /// #endif
     });
