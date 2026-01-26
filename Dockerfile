@@ -41,17 +41,20 @@ RUN --mount=type=cache,target=/root/.cache/go-build --mount=type=cache,target=/g
 
 FROM alpine:latest
 LABEL maintainer="Liang Ding<845765@qq.com>"
+LABEL modifier="nfe-w<nfe-w@outlook.com>"
 
-RUN apk add --no-cache ca-certificates tzdata su-exec
+RUN apk add --no-cache ca-certificates tzdata
 
 ENV TZ=Asia/Shanghai
-ENV HOME=/home/siyuan
 ENV RUN_IN_CONTAINER=true
+ENV LANG=zh_CN.UTF-8
+ENV LC_ALL=zh_CN.UTF-8
 EXPOSE 6806
+VOLUME /siyuan/workspace
 
 WORKDIR /opt/siyuan/
 COPY --from=go-build --chmod=755 /kernel/kernel /kernel/entrypoint.sh .
 COPY --from=node-build /artifacts .
 
 ENTRYPOINT ["/opt/siyuan/entrypoint.sh"]
-CMD ["/opt/siyuan/kernel"]
+CMD ["--workspace=/siyuan/workspace", "--accessAuthCode=password"]
