@@ -13,7 +13,7 @@ import time
 import uuid
 
 
-PLATFORMS = {"linux/amd64", "linux/arm64", "linux/arm/v7", "linux/arm/v8"}
+PLATFORMS = {"linux/amd64", "linux/arm64"}
 
 
 def memory_bytes(value):
