@@ -10,7 +10,7 @@ import time
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PLATFORMS = {"linux/amd64": "amd64", "linux/arm64": "arm64", "linux/arm/v7": "armv7", "linux/arm/v8": "armv8"}
+PLATFORMS = {"linux/amd64": "amd64", "linux/arm64": "arm64"}
 FILES = ("scripts/docker-onnx-build.sh", "scripts/docker-onnx-toolchain.cmake")
 DIGEST = re.compile(r"sha256:[0-9a-f]{64}")
 

@@ -12,7 +12,7 @@ import urllib.request
 import uuid
 
 
-PLATFORMS = ("linux/amd64", "linux/arm64", "linux/arm/v7", "linux/arm/v8")
+PLATFORMS = ("linux/amd64", "linux/arm64")
 CHECKS = {"licenses", "version", "model-load", "chinese", "latin", "blank", "worker-failure", "notebook"}
 DIGEST = re.compile(r"sha256:[0-9a-f]{64}")
 # 与 app/package.json 的版本一致：正式版为 x.y.z，预发行版追加 -alpha.1、-beta.2 或 -rc.3。
