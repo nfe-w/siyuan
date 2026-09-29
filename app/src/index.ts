@@ -14,7 +14,7 @@ import {Model} from "./layout/Model";
 import {loadDesktopHostConnection, onGetConfig} from "./boot/onGetConfig";
 import {exitAfterSettingsReset} from "./config/setting/reset";
 import {initBlockPopover} from "./block/popover";
-import {applyCloudUserState, onSetaccount} from "./config/tabs/accountUi";
+import {applyCloudUserState} from "./config/tabs/accountUi";
 import {addScript, addScriptSync} from "./protyle/util/addScript";
 import {genUUID} from "./util/genID";
 import {fetchPost} from "./util/fetch";
@@ -357,7 +357,6 @@ export class App {
                         await ensureOnboarding();
                         await setNoteBook();
                         await initWindowWithLoading(() => onGetConfig(response.data.start, this), setTabPosition);
-                        onSetaccount();
                         setTitle("", true);
                         initMessage();
                         /// #if BROWSER && !MOBILE
