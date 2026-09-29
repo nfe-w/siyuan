@@ -1,0 +1,67 @@
+name: Release Docker Image By NFE_W
+
+on:
+  push:
+    branches:
+      - dev-nfe-w
+  workflow_dispatch:
+
+# ref https://docs.github.com/zh/actions/learn-github-actions/variables
+env:
+  package_json: "app/package.json"
+  docker_hub_owner: "nfew"
+  docker_hub_repo: "siyuan"
+
+jobs:
+  build:
+    if: ${{ github.repository_owner == 'nfe-w' }}
+    name: build
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+
+    steps:
+      - name: Checkout repository and submodules
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.ref }}
+          submodules: recursive
+
+      - name: Extract version from package.json
+        id: version
+        run: |
+          echo "value=$(jq .version ${{ env.package_json }} -r)" >> $GITHUB_OUTPUT
+
+      - name: Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@main
+        with:
+          # this might remove tools that are actually needed,
+          # if set to "true" but frees about 6 GB
+          tool-cache: false
+
+          # all of these default to true, but feel free to set to
+          # "false" if necessary for your workflow
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          docker-images: true
+          swap-storage: true
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v4
+
+      - name: Setup Docker buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v4
+        with:
+          username: ${{ secrets.DOCKER_HUB_USER }}
+          password: ${{ secrets.DOCKER_HUB_PWD }}
+
+      - name: Build and push Docker image
+        # 走到这里的一定是 stable 版本，直接同时打 :latest 和具体版本号标签
+        run: |
+          docker buildx build --push --platform linux/amd64,linux/arm64 -t ${{ env.docker_hub_owner }}/${{ env.docker_hub_repo }}:latest -t ${{ env.docker_hub_owner }}/${{ env.docker_hub_repo }}:v${{ steps.version.outputs.value }} .
