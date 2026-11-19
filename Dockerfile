@@ -149,13 +149,16 @@ COPY --from=onnx-runtime /onnx-artifacts/ /ocr/linux-${TARGETARCH}/
 
 FROM ${ALPINE_IMAGE}
 LABEL maintainer="Liang Ding<845765@qq.com>"
+LABEL modifier="nfe-w<nfe-w@outlook.com>"
 
 RUN apk add --no-cache 'ca-certificates>=20261020-r0' tzdata su-exec libstdc++
 
 ENV TZ=Asia/Shanghai
-ENV HOME=/home/siyuan
 ENV RUN_IN_CONTAINER=true
+ENV LANG=zh_CN.UTF-8
+ENV LC_ALL=zh_CN.UTF-8
 EXPOSE 6806
+VOLUME /siyuan/workspace
 
 WORKDIR /opt/siyuan/
 COPY --from=go-build --chmod=755 /kernel/kernel /kernel/entrypoint.sh .
