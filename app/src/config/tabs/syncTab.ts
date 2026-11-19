@@ -1,7 +1,6 @@
 import {openInputDialog} from "../../dialog/inputDialog";
 import {confirmDialog} from "../../dialog/confirmDialog";
 import type {SettingTabBuilder} from "../setting/builder";
-import {registerAccountGroup} from "./accountUi";
 import {Constants} from "../../constants";
 import {fetchPost, fetchSyncPost} from "../../util/fetch";
 import {showMessage} from "../../dialog/message";
@@ -360,7 +359,6 @@ const mountRepoKey = (root: HTMLElement) => {
 };
 
 export const registerSyncTab = (tab: SettingTabBuilder) => {
-    registerAccountGroup(tab);
     registerSyncGroup(tab);
     registerRepoGroup(tab);
 };

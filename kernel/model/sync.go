@@ -473,9 +473,6 @@ func syncAdmission(boot, exit, byHand bool) (bool, string) {
 		}
 		return false, ""
 	}
-	if nil == Conf.GetUser() {
-		return false, ""
-	}
 
 	switch confSyncReadSnapshot.Provider {
 	case conf.ProviderSiYuan:
